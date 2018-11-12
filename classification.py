@@ -28,7 +28,7 @@ ys = tf.placeholder(tf.float32, [None, 10])
 prediction = add_layer(xs, 784, 10, activation_function=tf.nn.softmax)
 
 cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(prediction), reduction_indices=[1]))
-train_step = tf.train.GradientDescentOptimizer(0.5).minimizer(cross_entropy)
+train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 
 sess = tf.Session()
 
