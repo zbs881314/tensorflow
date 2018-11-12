@@ -41,7 +41,7 @@ with tf.name_scope('loss'):
     tf.summary.scalar('loss', loss)
 
 with tf.name_scope('train'):
-    train_step = tf.train.GradientDescentOptimizer(0.1).minimizer(loss)
+    train_step = tf.train.GradientDescentOptimizer(0.1).minimize(loss)
     
 sess = tf.Session()
 merged = tf.summary.merge_all()
@@ -49,7 +49,7 @@ merged = tf.summary.merge_all()
 writer = tf.summary.FileWriter('logs/', sess.graph)
 
 if int(tf.__version__).split('.')[1]) < 12 and int(tf.__version__).split('.')[0]) < 1:
-    init = tf.initializer_all_variables()
+    init = tf.initialize_all_variables()
 else:
     init = tf.global_variables_initializer()
 sess.run(init)
