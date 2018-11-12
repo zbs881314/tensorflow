@@ -32,7 +32,7 @@ train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 
 sess = tf.Session()
 
-if int(__version__).split('.')[0]) < 12 and int(__version__).split('.')[0]) < 1:
+if int(tf.__version__).split('.')[0]) < 12 and int(tf.__version__).split('.')[0]) < 1:
     init = tf.initialize_all_variables()
 else:
     init = tf.global_variables_initializer()
