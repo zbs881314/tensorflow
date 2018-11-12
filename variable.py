@@ -10,7 +10,7 @@ update = tf.assign(state, new_value)
 
 #tf.initializer_all_variables() 
 if int((tf.__version__).split('.')[1]) < 12 and int((tf.__version__).split('.')[0] < 1:
-    init = tf.initializer_all_variables()
+    init = tf.initialize_all_variables()
 else:
     init = tf.global_variables_initializer()
     
