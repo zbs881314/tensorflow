@@ -48,7 +48,7 @@ merged = tf.summary.merge_all()
 
 writer = tf.summary.FileWriter('logs/', sess.graph)
 
-if int(tf.__version__).split('.')[1]) < 12 and int(tf.__version__).split('.')[0]) < 1:
+if int((tf.__version__).split('.')[1]) < 12 and int((tf.__version__).split('.')[0]) < 1:
     init = tf.initialize_all_variables()
 else:
     init = tf.global_variables_initializer()
