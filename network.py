@@ -32,7 +32,7 @@ train_step = tf.train.GradientDescentOptimizer(0.1).minimize(loss)
 
 # initializer
 if int((tf.__version__).split('.')[1]) < 12:
-    init = tf.initializer_all_variables()
+    init = tf.initialize_all_variables()
 else:
     init = tf.global_variables_initializer()
 sess = tf.Session()
