@@ -31,10 +31,8 @@ loss = tf.reduce_mean(tf.reduce_sum(tf.square(ys - prediction), reduction_indice
 train_step = tf.train.GradientDescentOptimizer(0.1).minimize(loss)
 
 # initializer
-if int((tf.__version__).split('.')[1]) < 12:
-    init = tf.initialize_all_variables()
-else:
-    init = tf.global_variables_initializer()
+
+init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
 
