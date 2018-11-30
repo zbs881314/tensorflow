@@ -53,7 +53,7 @@ h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
 # fc2 layer
 W_fc2 = weight_variable([1024, 10])
 b_fc2 = bias_variable([10])
-prediction = tf.nn.softmax(te.matmul(h_fc1_drop, W_fc2) + b_fc2)
+prediction = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
 
 # error
 cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(prediction), reduction_indices=[1]))
@@ -67,6 +67,6 @@ else:
 sess.run(init)
 for i in range(1000):
     batch_xs, batch_ys = mnist.train.next_batch(100)
-    sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ye, keep_prob: 0.5})
+    sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys, keep_prob: 0.5})
     if i % 50 == 0:
         print(compute_accuracy(mnist.test.images[:1000], mnist.test.labels[:1000]))
