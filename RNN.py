@@ -47,7 +47,7 @@ def RNN(X, weights, biases):
     # cell
     
     # basic LSTM Cell
-    if int((tf.__version__).split('.')[1] < 12 and int((tf.__version__).split('.')[0] < 1:
+    if int((tf.__version__).split('.')[1]) < 12 and int((tf.__version__).split('.')[0]) < 1:
         cell = tf.nn.rnn_cell.BasicLSTMCell(n_hidden_units, forget_bias=1.0, state_is_tuple=True)
     else:
         cell = tf.contrib.rnn.BasicLSTMCell(n_hidden_units)
@@ -73,7 +73,7 @@ def RNN(X, weights, biases):
         outputs = tf.unpack(tf.transpose(outputs, [1, 0, 2]))     # state is the last output
     else:
         outputs = tf.unstack(tf.transpose(outputs, [1, 0, 2]))
-    results = tf.matmul(outputs[-1], weights[;out']) + biases['out']   # shape=(128, 10)
+    results = tf.matmul(outputs[-1], weights['out']) + biases['out']   # shape=(128, 10)
     
     return results
     
