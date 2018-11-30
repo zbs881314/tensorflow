@@ -25,7 +25,7 @@ def add_layer(inputs, in_size, out_size, layer_name, activation_function=None,):
     
 keep_prob = tf.placeholder(tf.float32)
 xs = tf.placeholder(tf.float32, [None, 64])
-ys = tf.placeholdre(tf.float32, [None, 10])
+ys = tf.placeholder(tf.float32, [None, 10])
 
 l1 = add_layer(xs, 64, 50, 'l1', activation_function=tf.nn.tanh)
 prediction = add_layer(l1, 50, 10, 'l2', activation_function=tf.nn.softmax)
