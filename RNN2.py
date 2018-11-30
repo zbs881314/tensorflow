@@ -13,7 +13,7 @@ LR = 0.006
 def get_batch():
     global BATCH_START, TIME_STEPS
     # xs shape (50batch, 20steps)
-    xs = np.arrange(BATCH_START, BATCH_START+TIME_STEPS*BATCH_SIZE).reshape((BATCH_SIZE, TIME_STEPS)) / (10*np.pi)
+    xs = np.arange(BATCH_START, BATCH_START+TIME_STEPS*BATCH_SIZE).reshape((BATCH_SIZE, TIME_STEPS)) / (10*np.pi)
     seq = np.sin(xs)
     res = np.cos(xs)
     BATCH_START += TIME_STEPS
@@ -31,7 +31,7 @@ class LSTMRNN(object):
         self.batch_size = batch_size
         with tf.name_scope('input'):
             self.xs = tf.placeholder(tf.float32, [None, n_steps, input_size], name='xs')
-            self.ys = tf.placeholder(tf.float32, [None, n_steps, output_size, name='ys')
+            self.ys = tf.placeholder(tf.float32, [None, n_steps, output_size], name='ys')
         with tf.variable_scope('in_hidden'):
             self.add_input_layer()
         with tf.variable_scope('LSTM_cell'):
@@ -48,7 +48,7 @@ class LSTMRNN(object):
         # Ws(in_size, cell_size)
         Ws_in = self._weight_variable([self.input_size, self.cell_size])
         # bs (cell_size,)
-        bs_in = self.bias_variable([self.cell_size,])
+        bs_in = self._bias_variable([self.cell_size,])
         # l_in_y = (batch*n_steps, cell_size)
         with tf.name_scope('Wx_plus_b'):
             l_in_y = tf.matmul(l_in_x, Ws_in) + bs_in
@@ -93,15 +93,15 @@ class LSTMRNN(object):
         
     def _bias_variable(self, shape, name='biases'):
         initializer = tf.constant_initializer(0.1)
-        return tf.fet_variable(name=name, shape=shape, initializer=initializer)
+        return tf.get_variable(name=name, shape=shape, initializer=initializer)
         
         
-if __name__ = '__main__':
+if __name__ == '__main__':
     model = LSTMRNN(TIME_STEPS, INPUT_SIZE, OUTPUT_SIZE, CELL_SIZE, BATCH_SIZE)
     sess = tf.Session()
     merged = tf.summary.merge_all()
     writer = tf.summary.FileWriter('logs', sess.graph)
-    if int((tf.__version__).split('.')[1] < 12 and int((tf.__version__).split('.')[0] < 1:
+    if int((tf.__version__).split('.')[1]) < 12 and int((tf.__version__).split('.')[0]) < 1:
         init = tf.initialize_all_variables()
     else:
         init = tf.global_variables_initializer()
@@ -124,7 +124,7 @@ if __name__ = '__main__':
             
         # plotting
         plt.plot(xs[0, :], res[0].flatten(), 'r', xs[0, :], pred.flatten()[:TIME_STEPS], 'b--')
-        plt.ylim(-1, 2, 1, 2))
+        plt.ylim((-1.2, 1.2))
         plt.draw()
         plt.pause(0.3)
         
