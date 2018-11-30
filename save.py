@@ -11,13 +11,13 @@ if int((tf.__version__).split('.')[1]) < 12 and int((tf.__version__).split('.')[
     init = tf.initialize_all_variables()
 else:
     init = tf.global_variables_initializer()
-    
+
 saver = tf.train.Saver()
 with tf.Session() as sess:
     sess.run(init)
     save_path = saver.save(sess, 'my_net/save_net.ckpt')
     print('save to path:', save_path)
-    
+#
     
     
 #restore variables
