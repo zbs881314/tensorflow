@@ -80,3 +80,29 @@ def learn():
     sess.run(train_op, {tf_s:b_s, tf_a:b_a, tf_r:b_r, tf_s_:b_s_})
 
 print('\nCollection experience')
+
+for i_episode in range(400):
+    s = env.reset()
+    ep_r = 0
+    while True:
+        env.render()
+        a = choose_action(s)
+
+        s_, r, done, info = env.step(a)
+
+        x, x_dot, theta, theta_dot = s_
+        r1 = (env.x_threshold - abs(x)) / env.x_threshold - 0.8
+        r2 = (env.theta_threshold_radians - abs(theta)) / env.theta_threshold_radians - 0.5
+        r = r1 + r2
+
+        store_transition(s, a, r, s_)
+        ep_r += r
+
+        if MEMORY_COUNTER > MEMORY_CAPACITY:
+            learn()
+            if done:
+                print('Ep:', i_episode, '| Ep_r:', round(ep_r, 2))
+
+        if done:
+            break
+        s = s_
